@@ -58,11 +58,12 @@ LOG_DIR = "logs"
 if not os.path.exists(LOG_DIR):
     os.makedirs(LOG_DIR)
 
+# Configure logging with UTF-8 encoding
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler(os.path.join(LOG_DIR, 'trading_bot.log')),
+        logging.FileHandler(os.path.join(LOG_DIR, 'trading_bot.log'), encoding='utf-8'),
         logging.StreamHandler(sys.stdout)
     ]
 )
@@ -198,7 +199,7 @@ async def rebalance(target: Optional[str]):
     try:
         trading_client.close_all_positions(cancel_orders=True)
         if target is None:
-            logger.info("→ Flat")
+            logger.info("-> Flat")
             return
 
         typ = "call" if target == "long" else "put"
@@ -209,7 +210,7 @@ async def rebalance(target: Optional[str]):
         logger.info(f"Current options buying power: ${options_bp:.2f}")
         
         if options_bp < 500:  # Buffer for fees and price movements
-            logger.warning(f"⚠️ Insufficient options buying power (${options_bp:.2f}). Skipping trade.")
+            logger.warning(f"!! Insufficient options buying power (${options_bp:.2f}). Skipping trade.")
             return
 
         leg = OptionLegRequest(
@@ -228,7 +229,7 @@ async def rebalance(target: Optional[str]):
         )
         try:
             resp = trading_client.submit_order(order)
-            logger.info(f"→ Entered {target.upper()} via {occ}  id={resp.id}")
+            logger.info(f"-> Entered {target.upper()} via {occ}  id={resp.id}")
         except Exception as e:
             logger.error(f"[ORDER ERR] {e}")
     except Exception as e:
