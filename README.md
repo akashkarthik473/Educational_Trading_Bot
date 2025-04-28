@@ -97,11 +97,3 @@ All trading activities and decisions are logged to:
 ## Disclaimer
 
 This trading bot is for educational purposes only. Trading options involves significant risk and is not suitable for all investors. Past performance is not indicative of future results. Always test thoroughly in paper trading mode before using real money.
-
-## License
-
-[Your chosen license]
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. 
