@@ -38,9 +38,11 @@ pip install -r requirements.txt
 
 ## Configuration
 
-1. Set up your Alpaca API credentials in the environment variables or directly in the code:
-   - API_KEY
-   - API_SECRET
+1. Create a `.env` file in the root directory with your Alpaca API credentials:
+```bash
+ALPACA_API_KEY=your_api_key_here
+ALPACA_API_SECRET=your_api_secret_here
+```
 
 2. Configure trading parameters in `main.py`:
    - TICKER: The stock symbol to trade
@@ -48,6 +50,8 @@ pip install -r requirements.txt
    - SLOW_WINDOW: Slow EMA period (default: 21)
    - PAPER: Set to True for paper trading, False for live trading
    - STOP_LOSS_PCT: Stop loss percentage (default: 15%)
+
+> **Important**: Never commit your `.env` file to version control. Add it to your `.gitignore` file.
 
 ## Usage
 

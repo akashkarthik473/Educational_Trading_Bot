@@ -17,6 +17,7 @@ import logging
 import sys
 import os
 import time
+from dotenv import load_dotenv
 
 import numpy as np
 import pandas as pd
@@ -35,6 +36,9 @@ from alpaca.data.requests import StockBarsRequest
 from alpaca.trading.requests import GetOptionContractsRequest
 from alpaca.data.timeframe import TimeFrame
 
+# Load environment variables
+load_dotenv()
+
 # ╭───────────────────────────── CONFIG ────────────────────────────╮
 TICKER = "AAPL"
 FAST_WINDOW = 9
@@ -42,8 +46,12 @@ SLOW_WINDOW = 21
 PAPER = True  # False → live
 STOP_LOSS_PCT = 0.15  # 15% stop loss
 
-API_KEY = "PKPQ4CXKNQZSPN1WPY3C"
-API_SECRET = "Oe7Ct4IDVXg3vtsjPHd4W5KhOrhaC6DvCk7LQtWq"
+# Get API credentials from environment variables
+API_KEY = os.getenv('ALPACA_API_KEY')
+API_SECRET = os.getenv('ALPACA_API_SECRET')
+
+if not API_KEY or not API_SECRET:
+    raise ValueError("Please set ALPACA_API_KEY and ALPACA_API_SECRET environment variables")
 
 # Logging configuration
 LOG_DIR = "logs"
